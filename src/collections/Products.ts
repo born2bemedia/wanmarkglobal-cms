@@ -63,6 +63,11 @@ export const Products: CollectionConfig = {
       label: 'Excerpt',
     },
     {
+      name: 'color',
+      type: 'text',
+      label: 'Color',
+    },
+    {
       name: 'includes',
       type: 'richText',
       label: 'Includes',
