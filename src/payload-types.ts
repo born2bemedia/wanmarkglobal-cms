@@ -72,6 +72,7 @@ export interface Config {
     categories: Category;
     products: Product;
     orders: Order;
+    cases: Case;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -84,6 +85,7 @@ export interface Config {
     categories: CategoriesSelect<false> | CategoriesSelect<true>;
     products: ProductsSelect<false> | ProductsSelect<true>;
     orders: OrdersSelect<false> | OrdersSelect<true>;
+    cases: CasesSelect<false> | CasesSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -216,6 +218,7 @@ export interface Product {
   price?: number | null;
   category?: (number | null) | Category;
   excerpt?: string | null;
+  color?: string | null;
   includes?: {
     root: {
       type: string;
@@ -270,6 +273,46 @@ export interface Order {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "cases".
+ */
+export interface Case {
+  id: number;
+  title: string;
+  slug?: string | null;
+  subtitle?: string | null;
+  thumbnail?: (number | null) | Media;
+  backgroundImage?: (number | null) | Media;
+  challenge?: string | null;
+  strategy?: string | null;
+  result?: string | null;
+  firstSection?: {
+    text?: string | null;
+    image?: (number | null) | Media;
+  };
+  secondSection?: {
+    text?: string | null;
+    subtitle?: string | null;
+  };
+  thirdSection?: {
+    subtitle?: string | null;
+  };
+  fourthSection?: {
+    text?: string | null;
+    subtitle?: string | null;
+  };
+  fifthSection?: {
+    subtitle?: string | null;
+    text?: string | null;
+  };
+  ctaSection?: {
+    subtitle?: string | null;
+    image?: (number | null) | Media;
+  };
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-locked-documents".
  */
 export interface PayloadLockedDocument {
@@ -298,6 +341,10 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'orders';
         value: number | Order;
+      } | null)
+    | ({
+        relationTo: 'cases';
+        value: number | Case;
       } | null);
   globalSlug?: string | null;
   user: {
@@ -417,6 +464,7 @@ export interface ProductsSelect<T extends boolean = true> {
   price?: T;
   category?: T;
   excerpt?: T;
+  color?: T;
   includes?: T;
   updatedAt?: T;
   createdAt?: T;
@@ -455,6 +503,57 @@ export interface OrdersSelect<T extends boolean = true> {
   createdAt?: T;
   invoice?: T;
   updatedAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "cases_select".
+ */
+export interface CasesSelect<T extends boolean = true> {
+  title?: T;
+  slug?: T;
+  subtitle?: T;
+  thumbnail?: T;
+  backgroundImage?: T;
+  challenge?: T;
+  strategy?: T;
+  result?: T;
+  firstSection?:
+    | T
+    | {
+        text?: T;
+        image?: T;
+      };
+  secondSection?:
+    | T
+    | {
+        text?: T;
+        subtitle?: T;
+      };
+  thirdSection?:
+    | T
+    | {
+        subtitle?: T;
+      };
+  fourthSection?:
+    | T
+    | {
+        text?: T;
+        subtitle?: T;
+      };
+  fifthSection?:
+    | T
+    | {
+        subtitle?: T;
+        text?: T;
+      };
+  ctaSection?:
+    | T
+    | {
+        subtitle?: T;
+        image?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
