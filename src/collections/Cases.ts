@@ -116,6 +116,35 @@ export const Cases: CollectionConfig = {
           type: 'text',
           label: 'Subtitle',
         },
+        {
+          name: 'strategies',
+          type: 'array',
+          label: 'Strategies',
+          required: true,
+          minRows: 1,
+          maxRows: 5,
+          fields: [
+            {
+              name: 'icon',
+              type: 'upload',
+              label: 'Icon',
+              relationTo: 'media',
+              required: false,
+            },
+            {
+              name: 'subtitle',
+              type: 'text',
+              label: 'Subtitle',
+              required: true,
+            },
+            {
+              name: 'text',
+              type: 'text',
+              label: 'Text',
+              required: true,
+            },
+          ],
+        },
       ],
     },
     {

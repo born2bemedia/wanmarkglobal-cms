@@ -293,8 +293,14 @@ export interface Case {
     text?: string | null;
     subtitle?: string | null;
   };
-  thirdSection?: {
+  thirdSection: {
     subtitle?: string | null;
+    strategies: {
+      icon?: (number | null) | Media;
+      subtitle: string;
+      text: string;
+      id?: string | null;
+    }[];
   };
   fourthSection?: {
     text?: string | null;
@@ -533,6 +539,14 @@ export interface CasesSelect<T extends boolean = true> {
     | T
     | {
         subtitle?: T;
+        strategies?:
+          | T
+          | {
+              icon?: T;
+              subtitle?: T;
+              text?: T;
+              id?: T;
+            };
       };
   fourthSection?:
     | T
