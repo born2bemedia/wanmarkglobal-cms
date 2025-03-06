@@ -37,7 +37,7 @@ export const Policies: CollectionConfig = {
     {
       name: 'content',
       type: 'richText',
-      label: 'Content',
+      label: 'Policy Content',
     },
   ],
 }
