@@ -15,9 +15,21 @@ import { Categories } from './collections/Categories'
 import { Products } from './collections/Products'
 import Orders from './collections/Orders'
 import { Cases } from './collections/Cases'
+import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
+import { google } from 'googleapis'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
+
+const oauth2Client = new google.auth.OAuth2(
+  process.env.GMAIL_CLIENT_ID,
+  process.env.GMAIL_CLIENT_SECRET,
+  'https://developers.google.com/oauthplayground',
+)
+
+oauth2Client.setCredentials({
+  refresh_token: process.env.GMAIL_REFRESH_TOKEN,
+})
 
 export default buildConfig({
   admin: {
@@ -53,4 +65,22 @@ export default buildConfig({
       token: process.env.BLOB_READ_WRITE_TOKEN,
     }),
   ],
+  email: nodemailerAdapter({
+    defaultFromName: 'Modulixo',
+    defaultFromAddress: 'noreply@3dellium.com',
+    transportOptions: {
+      service: 'gmail',
+      auth: {
+        type: 'OAuth2',
+        user: process.env.EMAIL_FROM, // Your Gmail email address
+        clientId: process.env.GMAIL_CLIENT_ID,
+        clientSecret: process.env.GMAIL_CLIENT_SECRET,
+        refreshToken: process.env.GMAIL_REFRESH_TOKEN,
+        accessToken: async () => {
+          const { token } = await oauth2Client.getAccessToken()
+          return token
+        },
+      },
+    },
+  }),
 })
