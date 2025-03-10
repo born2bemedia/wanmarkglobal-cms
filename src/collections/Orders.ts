@@ -102,10 +102,10 @@ export const Orders: CollectionConfig = {
       defaultValue: () => new Date().toISOString(),
     },
     {
-      name: 'invoice',
+      name: 'documents',
       type: 'upload',
       relationTo: 'media',
-      label: 'Invoice file',
+      label: 'Documents',
       required: false,
       admin: {
         position: 'sidebar',

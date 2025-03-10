@@ -268,7 +268,7 @@ export interface Order {
     zip?: string | null;
   };
   createdAt: string;
-  invoice?: (number | null) | Media;
+  documents?: (number | null) | Media;
   updatedAt: string;
 }
 /**
@@ -507,7 +507,7 @@ export interface OrdersSelect<T extends boolean = true> {
         zip?: T;
       };
   createdAt?: T;
-  invoice?: T;
+  documents?: T;
   updatedAt?: T;
 }
 /**
