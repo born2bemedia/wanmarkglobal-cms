@@ -269,6 +269,7 @@ export interface Order {
   };
   createdAt: string;
   documents?: (number | null) | Media;
+  invoice?: (number | null) | Media;
   updatedAt: string;
 }
 /**
@@ -508,6 +509,7 @@ export interface OrdersSelect<T extends boolean = true> {
       };
   createdAt?: T;
   documents?: T;
+  invoice?: T;
   updatedAt?: T;
 }
 /**

@@ -111,6 +111,16 @@ export const Orders: CollectionConfig = {
         position: 'sidebar',
       },
     },
+    {
+      name: 'invoice',
+      type: 'upload',
+      relationTo: 'media',
+      label: 'Invoice',
+      required: false,
+      admin: {
+        position: 'sidebar',
+      },
+    },
   ],
   hooks: {
     beforeChange: [
