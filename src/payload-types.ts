@@ -318,6 +318,7 @@ export interface Case {
   metaTags?: {
     title?: string | null;
     description?: string | null;
+    image?: (number | null) | Media;
   };
   updatedAt: string;
   createdAt: string;
@@ -577,6 +578,7 @@ export interface CasesSelect<T extends boolean = true> {
     | {
         title?: T;
         description?: T;
+        image?: T;
       };
   updatedAt?: T;
   createdAt?: T;

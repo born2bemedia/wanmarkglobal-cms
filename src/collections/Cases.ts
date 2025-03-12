@@ -210,6 +210,12 @@ export const Cases: CollectionConfig = {
           type: 'text',
           label: 'Description',
         },
+        {
+          name: 'image',
+          type: 'upload',
+          relationTo: 'media',
+          label: 'Image',
+        },
       ],
     },
   ],
