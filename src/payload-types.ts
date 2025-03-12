@@ -315,6 +315,10 @@ export interface Case {
     subtitle?: string | null;
     image?: (number | null) | Media;
   };
+  metaTags?: {
+    title?: string | null;
+    description?: string | null;
+  };
   updatedAt: string;
   createdAt: string;
 }
@@ -567,6 +571,12 @@ export interface CasesSelect<T extends boolean = true> {
     | {
         subtitle?: T;
         image?: T;
+      };
+  metaTags?:
+    | T
+    | {
+        title?: T;
+        description?: T;
       };
   updatedAt?: T;
   createdAt?: T;
