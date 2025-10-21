@@ -18,6 +18,8 @@ import { Cases } from './collections/Cases'
 import { nodemailerAdapter } from '@payloadcms/email-nodemailer'
 import { google } from 'googleapis'
 
+import { deeplTranslatorPlugin } from './deepl-translator'
+
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
 
@@ -44,6 +46,10 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
+  localization: {
+    locales: ['en', 'de', 'it'],
+    defaultLocale: 'en',
+  },
   cors: {
     origins: [`${process.env.LOCAL_FRONT_URL}`, `${process.env.WEB_FRONT_URL}`], // Allowed frontend origins
   },
@@ -63,6 +69,34 @@ export default buildConfig({
         media: true,
       },
       token: process.env.BLOB_READ_WRITE_TOKEN,
+    }),
+    deeplTranslatorPlugin({
+      enabled: true,
+      fallbackLocales: ['de', 'it'],
+      collections: {
+        cases: {
+          fields: [
+            'title',
+            'subtitle',
+            'text',
+            'challenge',
+            'strategy',
+            'result',
+            'firstSection.text',
+            'secondSection.text',
+            'secondSection.subtitle',
+            'thirdSection.subtitle',
+            'thirdSection.strategies',
+            'fourthSection.text',
+            'fourthSection.subtitle',
+            'fifthSection.subtitle',
+            'fifthSection.text',
+            'ctaSection.subtitle',
+            'metaTags.title',
+            'metaTags.description',
+          ],
+        },
+      },
     }),
   ],
   email: nodemailerAdapter({

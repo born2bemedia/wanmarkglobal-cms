@@ -1,3 +1,4 @@
+import { handleDocumentTranslation } from '@/services/translationService'
 import type { CollectionConfig } from 'payload'
 import slugify from 'slugify'
 
@@ -18,6 +19,7 @@ export const Cases: CollectionConfig = {
       type: 'text',
       label: 'Title',
       required: true,
+      localized: true,
     },
     {
       name: 'slug',
@@ -38,6 +40,7 @@ export const Cases: CollectionConfig = {
       name: 'subtitle',
       type: 'text',
       label: 'Subtitle',
+      localized: true,
     },
     {
       name: 'thumbnail',
@@ -61,16 +64,19 @@ export const Cases: CollectionConfig = {
       name: 'challenge',
       type: 'textarea',
       label: 'Challenge',
+      localized: true,
     },
     {
       name: 'strategy',
       type: 'textarea',
       label: 'Strategy',
+      localized: true,
     },
     {
       name: 'result',
       type: 'textarea',
       label: 'Result',
+      localized: true,
     },
 
     {
@@ -81,6 +87,7 @@ export const Cases: CollectionConfig = {
           name: 'text',
           type: 'textarea',
           label: 'Text',
+          localized: true,
         },
         {
           name: 'image',
@@ -99,11 +106,13 @@ export const Cases: CollectionConfig = {
           name: 'text',
           type: 'textarea',
           label: 'Text',
+          localized: true,
         },
         {
           name: 'subtitle',
           type: 'text',
           label: 'Subtitle',
+          localized: true,
         },
       ],
     },
@@ -115,6 +124,7 @@ export const Cases: CollectionConfig = {
           name: 'subtitle',
           type: 'text',
           label: 'Subtitle',
+          localized: true,
         },
         {
           name: 'strategies',
@@ -136,12 +146,14 @@ export const Cases: CollectionConfig = {
               type: 'text',
               label: 'Subtitle',
               required: true,
+              localized: true,
             },
             {
               name: 'text',
               type: 'text',
               label: 'Text',
               required: true,
+              localized: true,
             },
           ],
         },
@@ -155,11 +167,13 @@ export const Cases: CollectionConfig = {
           name: 'text',
           type: 'textarea',
           label: 'Text',
+          localized: true,
         },
         {
           name: 'subtitle',
           type: 'text',
           label: 'Subtitle',
+          localized: true,
         },
       ],
     },
@@ -171,11 +185,13 @@ export const Cases: CollectionConfig = {
           name: 'subtitle',
           type: 'text',
           label: 'Subtitle',
+          localized: true,
         },
         {
           name: 'text',
           type: 'textarea',
           label: 'Text',
+          localized: true,
         },
       ],
     },
@@ -187,6 +203,7 @@ export const Cases: CollectionConfig = {
           name: 'subtitle',
           type: 'text',
           label: 'Subtitle',
+          localized: true,
         },
         {
           name: 'image',
@@ -204,11 +221,13 @@ export const Cases: CollectionConfig = {
           name: 'title',
           type: 'text',
           label: 'Title',
+          localized: true,
         },
         {
           name: 'description',
           type: 'text',
           label: 'Description',
+          localized: true,
         },
         {
           name: 'image',
@@ -217,6 +236,56 @@ export const Cases: CollectionConfig = {
           label: 'Image',
         },
       ],
+    },
+  ],
+  endpoints: [
+    {
+      path: '/:id/translate-lt',
+      method: 'post',
+      handler: async (req) => {
+        try {
+          if (!req.user || req.user.role !== 'admin') {
+            return new Response(JSON.stringify({ message: 'Forbidden' }), {
+              status: 403,
+              headers: { 'Content-Type': 'application/json' },
+            })
+          }
+
+          const urlParts = (req as any).url?.split('/') || []
+          const id = urlParts[urlParts.length - 2]
+
+          if (!id) {
+            return new Response(JSON.stringify({ message: 'ID is required' }), {
+              status: 400,
+              headers: { 'Content-Type': 'application/json' },
+            })
+          }
+
+          const defaultLocale = 'en'
+          const result = await (req as any).payload.findByID({
+            collection: 'cases',
+            id,
+            locale: defaultLocale,
+            depth: 2,
+          })
+          console.log('📄 Result found:', result)
+          const doc = result
+
+          console.log('📄 Document found:', doc)
+
+          await handleDocumentTranslation(doc, 'cases', 'update', req as any)
+
+          return new Response(JSON.stringify({ ok: true }), {
+            headers: { 'Content-Type': 'application/json' },
+          })
+        } catch (e) {
+          console.error('translate-lt error', e)
+          return new Response(JSON.stringify({ ok: false, error: String(e) }), {
+            status: 500,
+            headers: { 'Content-Type': 'application/json' },
+          })
+        }
+      },
     },
   ],
 }
