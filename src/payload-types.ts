@@ -93,9 +93,13 @@ export interface Config {
   db: {
     defaultIDType: number;
   };
-  globals: {};
-  globalsSelect: {};
-  locale: null;
+  globals: {
+    'deepl-translator-config': DeeplTranslatorConfig;
+  };
+  globalsSelect: {
+    'deepl-translator-config': DeeplTranslatorConfigSelect<false> | DeeplTranslatorConfigSelect<true>;
+  };
+  locale: 'en' | 'de' | 'it';
   user: User & {
     collection: 'users';
   };
@@ -614,6 +618,36 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
   batch?: T;
   updatedAt?: T;
   createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "deepl-translator-config".
+ */
+export interface DeeplTranslatorConfig {
+  id: number;
+  fallbackLocales?:
+    | {
+        locale?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "deepl-translator-config_select".
+ */
+export interface DeeplTranslatorConfigSelect<T extends boolean = true> {
+  fallbackLocales?:
+    | T
+    | {
+        locale?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
