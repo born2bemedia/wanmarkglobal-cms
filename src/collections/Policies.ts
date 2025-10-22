@@ -18,6 +18,7 @@ export const Policies: CollectionConfig = {
       type: 'text',
       label: 'Title',
       required: true,
+      localized: true,
     },
     {
       name: 'slug',
@@ -38,6 +39,7 @@ export const Policies: CollectionConfig = {
       name: 'content',
       type: 'richText',
       label: 'Policy Content',
+      localized: true,
     },
   ],
 }

@@ -96,6 +96,9 @@ export default buildConfig({
             'metaTags.description',
           ],
         },
+        policies: {
+          fields: ['title', 'content'],
+        },
       },
     }),
   ],
