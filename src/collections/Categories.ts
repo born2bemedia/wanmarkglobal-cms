@@ -18,6 +18,7 @@ export const Categories: CollectionConfig = {
       type: 'text',
       label: 'Category Title',
       required: true,
+      localized: true,
     },
     {
       name: 'slug',
@@ -39,6 +40,7 @@ export const Categories: CollectionConfig = {
       type: 'textarea',
       label: 'Category Description',
       required: true,
+      localized: true,
     },
   ],
 }
