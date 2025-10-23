@@ -99,6 +99,9 @@ export default buildConfig({
         policies: {
           fields: ['title', 'content'],
         },
+        categories: {
+          fields: ['title', 'description'],
+        },
       },
     }),
   ],
