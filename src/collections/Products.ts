@@ -18,6 +18,7 @@ export const Products: CollectionConfig = {
       type: 'text',
       label: 'Product Title',
       required: true,
+      localized: true,
     },
     {
       name: 'slug',
@@ -61,6 +62,7 @@ export const Products: CollectionConfig = {
       name: 'excerpt',
       type: 'textarea',
       label: 'Excerpt',
+      localized: true,
     },
     {
       name: 'color',
@@ -71,6 +73,7 @@ export const Products: CollectionConfig = {
       name: 'includes',
       type: 'richText',
       label: 'Includes',
+      localized: true,
     },
   ],
 }

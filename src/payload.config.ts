@@ -102,6 +102,9 @@ export default buildConfig({
         categories: {
           fields: ['title', 'description'],
         },
+        products: {
+          fields: ['title', 'excerpt', 'includes'],
+        },
       },
     }),
   ],
